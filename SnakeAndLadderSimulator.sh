@@ -4,6 +4,7 @@ echo "Welcome to Snake And Ladder Simulator Problem"
 POSITION=0
 SNAKE=1
 LADDER=2
+WIN_POSITION=100
 player=1
 
 positionOfPlayer=$POSITION
@@ -27,10 +28,10 @@ function winPosition100(){
 	while(true)
 	do
 		getDieRoll
-		if [ $positionOfPlayer -eq 100 ]
+		if [ $positionOfPlayer -eq $WIN_POSITION ]
 		then
 		break;
-		elif [ $positionOfPlayer -lt 0 ]
+		elif [ $positionOfPlayer -lt $POSITION ]
 		then
 			positionOfPlayer=0
 		fi

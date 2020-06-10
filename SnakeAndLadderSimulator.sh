@@ -5,7 +5,6 @@ POSITION=0
 SNAKE=1
 LADDER=2
 WIN_POSITION=100
-player=1
 
 positionOfPlayer=$POSITION
 
@@ -16,7 +15,12 @@ function getDieRoll(){
 		$NO_PLAY)
 			positionOfPlayer=$((positionOfPlayer+0));;
 		$LADDER)
-			positionOfPlayer=$((positionOfPlayer+die));;
+			if [ $(( positionOfPlayer+die )) -gt $WIN_POSITION ]
+			then
+				positionOfPlayer=$((positionOfPlayer-die))
+			else
+				 positionOfPlayer=$((positionOfPlayer+die))
+			fi;;
 		$SNAKE)
 			positionOfPlayer=$((positionOfPlayer-die));;
 	esac

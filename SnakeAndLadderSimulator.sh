@@ -6,7 +6,7 @@ SNAKE=1
 LADDER=2
 WIN_POSITION=100
 dieNumber=0
-
+player=1
 positionOfPlayer=$POSITION
 
 declare -A positionDictionary
@@ -65,3 +65,31 @@ done
 getDieKeyVlaue
 
 echo "Total Die Rolls = $dieNumber"
+
+function twoPlayers(){
+	while [ true ]
+		do
+			if [ $(( player%2 )) -eq 1 ]
+				then
+					getDieRoll
+      			(( player++ ))
+         		if [ $positionOfPlayer -eq $WIN_POSITION ]
+         			then
+            			echo "Player 1 Won"
+            		break
+         		fi
+       	fi
+
+       	if [ $(( player%2 )) -eq 0 ]
+       		then
+       			getDieRoll
+       			(( player++ ))
+          			if [ $positionOfPlayer -eq $WIN_POSITION ]
+							then
+             			echo "Player 2 Won"
+							break
+         			fi
+			fi
+   	done
+}
+twoPlayers

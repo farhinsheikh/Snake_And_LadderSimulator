@@ -5,8 +5,11 @@ POSITION=0
 SNAKE=1
 LADDER=2
 WIN_POSITION=100
+dieNumber=0
 
 positionOfPlayer=$POSITION
+
+declare -A positionDictionary
 
 function getDieRoll(){
 	die=$(( RANDOM % 6 + 1 ))
@@ -22,7 +25,13 @@ function getDieRoll(){
 				 positionOfPlayer=$((positionOfPlayer+die))
 			fi;;
 		$SNAKE)
-			positionOfPlayer=$((positionOfPlayer-die));;
+			if [ $((positionOfPlayer-die)) -lt $POSITION ]
+			then
+				 positionOfPlayer=$POSITION
+         else
+             positionOfPlayer=$((positionOfPlayer-die))
+         fi;;
+
 	esac
 }
 getDieRoll
@@ -32,14 +41,27 @@ function winPosition100(){
 	while(true)
 	do
 		getDieRoll
+		(( dieNumber++ ))
+		positionDictionary["$dieNumber"]=$positionOfPlayer
+
 		if [ $positionOfPlayer -eq $WIN_POSITION ]
 		then
 		break;
 		elif [ $positionOfPlayer -lt $POSITION ]
 		then
-			positionOfPlayer=0
+			positionOfPlayer=$POSITION
 		fi
 	done
 }
 winPosition100
 echo "player winning position = $positionOfPlayer"
+
+function getDieKeyVlaue(){
+for key in ${!positionDictionary[@]}
+do
+   echo "Player position when die rolled $key time is : ${positionDictionary[$key]}"
+done
+}
+getDieKeyVlaue
+
+echo "Total Die Rolls = $dieNumber"

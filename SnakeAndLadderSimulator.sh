@@ -67,21 +67,21 @@ getDieKeyVlaue
 echo "Total Die Rolls = $dieNumber"
 
 function twoPlayers(){
-	while [ true ]
-	do
-		if [ $(( player%2 )) -eq 1 ]
-			then
-			getDieRoll
-			(( player++ ))
-				if [ $positionOfPlayer -eq $WIN_POSITION ]
+   while [ true ]
+      do
+         if [ $(( player%2 )) -eq 1 ]
+            then
+               getDieRoll
+               (( player++ ))
+               if [ $positionOfPlayer -eq $WIN_POSITION ]
 					then
-					echo "Player 1 Won"
+						echo "Player 1 Won"
 					else
-					echo "Player 2 Won"
-				fi
-		fi
-		break
-   done
+						echo "Player 2 Won"
+               fi
+         fi
+         break
+		done
 }
 twoPlayers
 

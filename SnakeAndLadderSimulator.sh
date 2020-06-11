@@ -1,13 +1,13 @@
 #!/bin/bash -x
 echo "Welcome to Snake And Ladder Simulator Problem"
 
-POSITION=0
+START_POSITION=0
 SNAKE=1
 LADDER=2
 WIN_POSITION=100
 dieNumber=0
 player=1
-positionOfPlayer=$POSITION
+positionOfPlayer=$START_POSITION
 
 declare -A positionDictionary
 
@@ -25,9 +25,9 @@ function getDieRoll(){
 				 positionOfPlayer=$((positionOfPlayer+die))
 			fi;;
 		$SNAKE)
-			if [ $((positionOfPlayer-die)) -lt $POSITION ]
+			if [ $((positionOfPlayer-die)) -lt $START_POSITION ]
 			then
-				 positionOfPlayer=$POSITION
+				 positionOfPlayer=$START_POSITION
          else
              positionOfPlayer=$((positionOfPlayer-die))
          fi;;
@@ -47,9 +47,9 @@ function winPosition100(){
 		if [ $positionOfPlayer -eq $WIN_POSITION ]
 		then
 		break;
-		elif [ $positionOfPlayer -lt $POSITION ]
+		elif [ $positionOfPlayer -lt $START_POSITION ]
 		then
-			positionOfPlayer=$POSITION
+			positionOfPlayer=$START_POSITION
 		fi
 	done
 }
@@ -67,29 +67,20 @@ getDieKeyVlaue
 echo "Total Die Rolls = $dieNumber"
 
 function twoPlayers(){
-	while [ true ]
-		do
-			if [ $(( player%2 )) -eq 1 ]
-				then
-					getDieRoll
-      			(( player++ ))
-         		if [ $positionOfPlayer -eq $WIN_POSITION ]
-         			then
-            			echo "Player 1 Won"
-            		break
-         		fi
-       	fi
-
-       	if [ $(( player%2 )) -eq 0 ]
-       		then
-       			getDieRoll
-       			(( player++ ))
-          			if [ $positionOfPlayer -eq $WIN_POSITION ]
-							then
-             			echo "Player 2 Won"
-							break
-         			fi
-			fi
-   	done
+   while [ true ]
+      do
+         if [ $(( player%2 )) -eq 1 ]
+            then
+               getDieRoll
+               (( player++ ))
+               if [ $positionOfPlayer -eq $WIN_POSITION ]
+					then
+						echo "Player 1 Won"
+					else
+						echo "Player 2 Won"
+               fi
+         fi
+         break
+		done
 }
 twoPlayers
